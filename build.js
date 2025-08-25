@@ -29,7 +29,7 @@ function build() {
     const fileMap = {}
     readDir(inputPath, "", fileMap)
     const content = `const files = ${util.inspect(fileMap)}
-  export default files`
+export default files`
     output.end(content, err => {
       if(err) {
         console.error(err)
