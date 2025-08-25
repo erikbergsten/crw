@@ -13,7 +13,7 @@ export default class CRW  {
   constructor(files) {
     this.engine = new Liquid()
     this.templates = Object.fromEntries(Object.entries(files).map(([k, v]) =>
-      [k, engine.compile(v)]
+      [k, this.engine.compile(v)]
     ))
   }
   async render(name, args) {
