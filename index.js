@@ -20,7 +20,7 @@ export default class CRW  {
     return this.engine.render(this.templates[name], args)
   }
   async response(name, args, headers) {
-    return new Response(this.render(name, args), {
+    return new Response(await this.render(name, args), {
       headers: {
         'Content-Type': 'text/html',
         ...headers
