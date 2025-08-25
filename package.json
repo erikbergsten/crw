@@ -1,11 +1,11 @@
 {
   "name": "crw",
-  "module": "index.js",
+  "module": "src/index.js",
   "bin": {
     "build-views": "build.js"
   },
   "files": [
-    "index.js",
+    "src/*.js",
     "build.js"
   ],
   "dependencies": {
