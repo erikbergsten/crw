@@ -15,7 +15,7 @@ export default class CRW  {
     this.env.addFilter('render', (name, args) => {
       return this.env.filters.safe(this.render(name, args))
     })
-    if(process.env && process.env.RELOADER === 'true') {
+    if(process && process.env.RELOADER === 'true') {
       this.env.addGlobal('reloader', this.env.filters.safe(reloader))
     }
     this.templates = Object.fromEntries(Object.entries(files).map(([k, v]) =>
