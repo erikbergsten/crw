@@ -1,7 +1,6 @@
 {
   "name": "crw",
   "module": "index.js",
-  "type": "module",
   "bin": {
     "build-views": "build.js"
   },
