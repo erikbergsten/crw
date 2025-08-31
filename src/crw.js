@@ -10,7 +10,8 @@ connection.onclose = () => {
 </script>`;
 
 export class CRW  {
-  constructor(files) {
+  constructor(files, layout='layout') {
+    this.layoutName = layout
     this.engine = new Liquid()
     this.templates = Object.fromEntries(Object.entries(files).map(([k, v]) =>
       [k, this.engine.parse(v)]
@@ -26,5 +27,18 @@ export class CRW  {
         ...headers
       }
     })
+  }
+
+  async layout(name, args, headers) {
+    const content = await this.render(name, args)
+    return this.response(this.layoutName, { content }, headers)
+  }
+
+  async hxLayout(req, name, args, headers) {
+    if(req.headers.get('HX-Request')) {
+      return this.response(name, args, headers)
+    } else {
+      return this.layout(name, args, headers)
+    }
   }
 }

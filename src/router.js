@@ -13,7 +13,6 @@ export async function route(routes, req, ...args) {
             if(res instanceof Response) return res
           }
         }
-        return new Response("method not allowed", { status: 405 })
       } else {
         const res = await handler(req, match.groups || {}, ...args)
         if(res) return res
