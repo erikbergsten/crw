@@ -1,4 +1,4 @@
-import {Liquid}  from 'liquidjs'
+import { Liquid }  from 'liquidjs'
 
 const reloader = `<script>
 const connection = new WebSocket("/")
@@ -35,7 +35,7 @@ export class CRW  {
   }
 
   async hxLayout(req, name, args, headers) {
-    if(req.headers.get('HX-Request')) {
+    if(req.headers.get('HX-Request') === 'true') {
       return this.response(name, args, headers)
     } else {
       return this.layout(name, args, headers)

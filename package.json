@@ -2,11 +2,13 @@
   "name": "crw",
   "module": "src/index.js",
   "bin": {
-    "build-views": "build.js"
+    "build-views": "build.js",
+    "bun-adapter": "bun-adapter.js"
   },
   "files": [
     "src/*.js",
-    "build.js"
+    "build.js",
+    "bun-adapter.js"
   ],
   "dependencies": {
     "liquidjs": "^10.21.1",

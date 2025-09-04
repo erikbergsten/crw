@@ -19,7 +19,6 @@ function readDir(directoryPath, prefix, out) {
   }
 }
 
-
 const inputPath = process.env.TEMPLATE_DIR || './views'
 function build() {
   try {
