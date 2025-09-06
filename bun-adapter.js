@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { fileURLToPath } from "url";
 import { join, dirname } from "path";
+const nodemon = require('nodemon')
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const staticPath = join(__dirname, 'static');
@@ -19,23 +20,35 @@ async function fileResponse(req) {
 }
 
 const index = require(process.cwd() + "/src/index")
+const port = 3000
 
-const port = 3001
-console.log("listening on port", port)
-Bun.serve({
-  port: port,
-  fetch: async (req, server) => {
-    if (server.upgrade(req)) {
-      console.log("upgrading!")
-      return; // do not return a Response
+function main() {
+  console.log("listening on port", port)
+  Bun.serve({
+    port: port,
+    fetch: async (req, server) => {
+      if (server.upgrade(req)) {
+        console.log("upgrading!")
+        return; // do not return a Response
+      }
+      const res = await index.default.fetch(req)
+      if(res) {
+        return res
+      }
+      return fileResponse(req)
+    },
+    websocket: {
+        message(ws, message) {}, // a message is received
     }
-    const res = await index.default.fetch(req)
-    if(res) {
-      return res
-    }
-    return fileResponse(req)
-  },
-  websocket: {
-      message(ws, message) {}, // a message is received
-  }
-})
+  })
+}
+
+const inputPath = process.env.TEMPLATE_DIR || './src'
+if(process.argv.indexOf('-w') < 0) {
+  main()
+} else {
+  nodemon({
+    watch: [inputPath],
+    exec: 'bun run bun-adapter'
+  });
+}
